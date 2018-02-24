@@ -6,13 +6,15 @@ import { LoginComponent } from './login/login.component';
 
 import { routes } from './app.routes';
 import { ChatComponent } from './chat/chat.component';
+import { TitleBarComponent } from './title-bar/title-bar.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    ChatComponent
+    ChatComponent,
+    TitleBarComponent
   ],
   imports: [
     BrowserModule,
