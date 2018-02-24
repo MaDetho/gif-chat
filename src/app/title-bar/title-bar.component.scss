@@ -6,6 +6,7 @@
     position: absolute;
     top: 0;
     left: 0;
+    -webkit-app-region: drag;
 
     .title-logo {
         height: 16px;
