@@ -1,27 +1,23 @@
 @import "~scss/variables";
 
 .login {
-    width: 280px;
-    height: 340px;
-    padding: 60px 30px;
-    position: relative;
+  width: 100%;
+  height: calc(100% - 40px);
+  position: absolute;
+  bottom: 0;
+  left: 0;
 
-    .login-logo {
-        height: 25px;
-        fill: $primary;
+  .login-form {
+    width: 300px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    input {
+      margin-bottom: 10px;
     }
 
-    .login-form {
-        margin-top: 30px;
-        input {
-        margin-bottom: 15px;
-        }
-    }
+  }
 
-    .login-quit {
-        position: absolute;
-        bottom: 30px;
-        right: 30px;
-    }
 }
-  
