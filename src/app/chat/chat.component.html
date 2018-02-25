@@ -34,7 +34,7 @@
 
 <main class="chat">
 
-  <section class="chat-messages">
+  <section class="chat-messages" #scrollMe [scrollTop]="scrollMe.scrollHeight">
 
     <div *ngFor="let oldMessage of oldMessages" class="message">
 
