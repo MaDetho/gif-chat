@@ -3,7 +3,7 @@
   <section class="gifs-favourites"></section>
   <section class="gifs-results"></section>
   <section class="gifs-loading"></section>
-  <form class="gifs-form">
+  <form class="gifs-form" [formGroup]="gifForm">
     <div class="gifs-form-search">
       <input class="gifs-form-input" type="text" placeholder="Search" autocomplete="off">
       <label>
@@ -35,7 +35,7 @@
 <main class="chat">
   <section class="chat-messages"></section>
   <section class="chat-users"></section>
-  <form class="chat-form">
+  <form class="chat-form" [formGroup]="chatForm">
     <input class="chat-form-input" type="text" placeholder="Message" autocomplete="off">
     <div class="chat-form-typing">Martin is typing...</div>
   </form>
