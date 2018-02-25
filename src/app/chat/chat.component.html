@@ -33,6 +33,7 @@
 </aside>
 
 <main class="chat">
+
   <section class="chat-messages">
       <div *ngFor="let oldMessage of oldMessages">
           {{oldMessage._creator.firstname}}: {{oldMessage.msg}}
@@ -41,14 +42,26 @@
           {{message.user.firstname}}: {{message.msg}}
       </div>
   </section>
+
   <section class="chat-users">
-      <div *ngFor="let user of users">
-          {{user.firstname}}
-          {{user.status}}
+    <div *ngFor="let user of users">
+      <div *ngIf="user.status == '1'" data-status="online">
+        <img src="{{user.avatar}}">
       </div>
+      <div *ngIf="user.status == '0'" data-status="offline">
+        <img src="{{user.avatar}}">
+      </div>
+      <div>
+        <strong>{{user.firstname}}</strong>
+        <small *ngIf="user.status == '1'">Online - 2 mins</small>
+        <small *ngIf="user.status == '0'">Offline - 2 mins</small>
+      </div>
+    </div>
   </section>
+
   <form class="chat-form" [formGroup]="chatForm" (ngSubmit)="sendMessage()">
     <input class="chat-form-input" type="text" placeholder="Message" autocomplete="off" [(ngModel)]="messageInput" formControlName="messageFormInput">
     <div class="chat-form-typing">Martin is typing...</div>
   </form>
+
 </main>
