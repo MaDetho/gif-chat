@@ -35,12 +35,49 @@
 <main class="chat">
 
   <section class="chat-messages">
-      <div *ngFor="let oldMessage of oldMessages">
-          {{oldMessage._creator.firstname}}: {{oldMessage.msg}}
+
+    <div *ngFor="let oldMessage of oldMessages" class="message">
+
+      <div class="message-first">
+        <div>
+          <img src="">
+        </div>
+        <div>
+          <h5><strong>{{oldMessage._creator.firstname}}</strong><time>12:00 PM</time></h5>
+          {{oldMessage.msg}}
+        </div>
       </div>
-      <div *ngFor="let message of messages">
-          {{message.user.firstname}}: {{message.msg}}
+
+      <!--
+      <div class="message-append">
+        <div><time>12:00 PM</time></div>
+        <div>{{oldMessage.msg}}</div>
       </div>
+      -->
+      
+    </div>
+
+    <div *ngFor="let message of messages" class="message">
+
+      <div class="message-first">
+        <div>
+          <img src="">
+        </div>
+        <div>
+          <h5><strong>{{message.user.firstname}}</strong><time>12:00 PM</time></h5>
+          {{message.msg}}
+        </div>
+      </div>
+
+      <!--
+      <div class="message-append">
+        <div><time>12:00 PM</time></div>
+        <div>{{message.msg}}</div>
+      </div>
+      -->
+
+    </div>
+
   </section>
 
   <section class="chat-users">
@@ -53,8 +90,8 @@
       </div>
       <div>
         <strong>{{user.firstname}}</strong>
-        <small *ngIf="user.status == '1'">Online - 2 mins</small>
-        <small *ngIf="user.status == '0'">Offline - 2 mins</small>
+        <small *ngIf="user.status == '1'">Online - <time class="timeago" datetime="2018-02-25T18:38:21.581Z"></time></small>
+        <small *ngIf="user.status == '0'">Offline - <time class="timeago" datetime="2018-02-25T18:38:21.581Z"></time></small>
       </div>
     </div>
   </section>
