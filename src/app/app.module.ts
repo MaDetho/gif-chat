@@ -11,6 +11,7 @@ import { ChatComponent } from './chat/chat.component';
 import { TitleBarComponent } from './title-bar/title-bar.component';
 import { AuthService } from './services/auth.service';
 import { AuthGuard } from './guards/auth.guard';
+import { ChatService } from './services/chat.service';
 
 
 @NgModule({
@@ -28,7 +29,8 @@ import { AuthGuard } from './guards/auth.guard';
   ],
   providers: [
     AuthService,
-    AuthGuard
+    AuthGuard,
+    ChatService
   ],
   bootstrap: [AppComponent]
 })

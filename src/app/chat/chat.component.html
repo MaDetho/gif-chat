@@ -33,10 +33,22 @@
 </aside>
 
 <main class="chat">
-  <section class="chat-messages"></section>
-  <section class="chat-users"></section>
-  <form class="chat-form" [formGroup]="chatForm">
-    <input class="chat-form-input" type="text" placeholder="Message" autocomplete="off">
+  <section class="chat-messages">
+      <div *ngFor="let oldMessage of oldMessages">
+          {{oldMessage._creator.firstname}}: {{oldMessage.msg}}
+      </div>
+      <div *ngFor="let message of messages">
+          {{message.user.firstname}}: {{message.msg}}
+      </div>
+  </section>
+  <section class="chat-users">
+      <div *ngFor="let user of users">
+          {{user.firstname}}
+          {{user.status}}
+      </div>
+  </section>
+  <form class="chat-form" [formGroup]="chatForm" (ngSubmit)="sendMessage()">
+    <input class="chat-form-input" type="text" placeholder="Message" autocomplete="off" [(ngModel)]="messageInput" formControlName="messageFormInput">
     <div class="chat-form-typing">Martin is typing...</div>
   </form>
 </main>
