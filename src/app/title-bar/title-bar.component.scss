@@ -8,6 +8,10 @@
     left: 0;
     -webkit-app-region: drag;
 
+    > * {
+      animation: fadein 0.7s ease-out;
+    }
+
     .title-logo {
         height: 16px;
         fill: white;
@@ -37,4 +41,13 @@
         transform: translateY(-50%);
         }
     }
+}
+
+@keyframes fadein {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }

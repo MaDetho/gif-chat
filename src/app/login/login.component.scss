@@ -3,6 +3,7 @@
 .login {
   width: 100%;
   height: calc(100% - 40px);
+  background: $primary;
   position: absolute;
   bottom: 0;
   left: 0;
@@ -12,12 +13,12 @@
     padding: 40px;
     background: white;
     border-radius: $radius;
-    box-shadow: 0 20px 100px rgba(black, 0.2);
+    box-shadow: 0 100px 200px rgba(black, 0.3);
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    animation: fadein 0.7s cubic-bezier(0.2, 0.8, 0.3, 1.2);
+    animation: tada 0.7s cubic-bezier(0.2, 0.8, 0.3, 1.2);
 
     input {
       margin-bottom: 10px;
@@ -27,7 +28,7 @@
 
 }
 
-@keyframes fadein {
+@keyframes tada {
   0% {
     transform: translate(-50%, 100%);
     opacity: 0;

@@ -37,6 +37,7 @@ img {
 
 input, button {
 	height: 40px;
+	background: transparent;
 	font-family: inherit;
 	font-size: inherit;
 	border-radius: $radius;
@@ -45,7 +46,6 @@ input, button {
 
 input {
 	width: 100%;
-	background: transparent;
 	color: inherit;
 	border: 1px solid $grey3;
 	padding: 0 10px;
@@ -55,13 +55,17 @@ input {
 }
 
 button {
-	background: $primary;
 	font-weight: 700;
-	color: white;
-	border: none;
+	color: $primary;
+	border: 1px solid $primary;
 	padding: 0 30px;
+	transition: border 0.2s ease-out, color 0.2s ease-out;;
 	&:disabled {
-		background: $grey3;
+		color: $grey3;
+		border-color: $grey3;
 		cursor: not-allowed;
+	}
+	&:active {
+		transform: translateY(1px) scale(0.99);
 	}
 }
