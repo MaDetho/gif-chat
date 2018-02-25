@@ -12,6 +12,7 @@ import { TitleBarComponent } from './title-bar/title-bar.component';
 import { AuthService } from './services/auth.service';
 import { AuthGuard } from './guards/auth.guard';
 import { ChatService } from './services/chat.service';
+import { StatusPipe } from './pipes/status.pipe';
 
 
 @NgModule({
@@ -19,7 +20,8 @@ import { ChatService } from './services/chat.service';
     AppComponent,
     LoginComponent,
     ChatComponent,
-    TitleBarComponent
+    TitleBarComponent,
+    StatusPipe
   ],
   imports: [
     BrowserModule,

@@ -82,10 +82,7 @@
 
   <section class="chat-users">
     <div *ngFor="let user of users">
-      <div *ngIf="user.status == '1'" data-status="online">
-        <img src="{{user.avatar}}">
-      </div>
-      <div *ngIf="user.status == '0'" data-status="offline">
+      <div class="status-{{user.status | status}}">
         <img src="{{user.avatar}}">
       </div>
       <div>
