@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ChatService } from '../services/chat.service';
+import { WindowService } from '../services/window.service';
 
 @Component({
   selector: 'app-chat',
@@ -16,7 +17,8 @@ export class ChatComponent implements OnInit {
   users: object = [];
 
   constructor(private fb: FormBuilder,
-    private chatService: ChatService) {
+    private chatService: ChatService,
+    private windowService: WindowService) {
 
     this.chatForm = this.fb.group({
       messageFormInput: ['', Validators.required]
@@ -35,14 +37,13 @@ export class ChatComponent implements OnInit {
 
     this.chatService.loadOldMessages()
       .subscribe((messages: object[]) => {
-        console.log(messages);
         this.oldMessages = messages;
       });
 
     this.chatService.getMessage()
       .subscribe((message: object) => {
-        console.log(message);
        this.messages.push(message);
+       this.windowService.flashOnBlur();
       });
 
     this.chatService.getUserStatusUpdate()

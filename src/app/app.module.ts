@@ -14,6 +14,8 @@ import { AuthService } from './services/auth.service';
 import { AuthGuard } from './guards/auth.guard';
 import { ChatService } from './services/chat.service';
 import { StatusPipe } from './pipes/status.pipe';
+import { WindowService } from './services/window.service';
+import { RouterModule } from '@angular/router';
 
 
 @NgModule({
@@ -34,8 +36,10 @@ import { StatusPipe } from './pipes/status.pipe';
   providers: [
     AuthService,
     AuthGuard,
-    ChatService
+    ChatService,
+    WindowService
   ],
+  exports: [RouterModule],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
