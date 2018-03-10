@@ -12,8 +12,8 @@ export class ChatComponent implements OnInit {
   gifForm: FormGroup;
   chatForm: FormGroup;
   messageInput: string;
-  oldMessages: object = [];
-  messages: object[] = [];
+  oldMessages: any = [];
+  messages: any[] = [];
   users: object = [];
 
   constructor(private fb: FormBuilder,
@@ -41,9 +41,12 @@ export class ChatComponent implements OnInit {
       });
 
     this.chatService.getMessage()
-      .subscribe((message: object) => {
-       this.messages.push(message);
-       this.windowService.flashOnBlur();
+      .subscribe((message: any) => {
+        if (this.messages.length > 0) {
+          message.append = this.isAppend(this.messages, message);
+        }
+        this.messages.push(message);
+        this.windowService.flashOnBlur();
       });
 
     this.chatService.getUserStatusUpdate()
@@ -52,10 +55,16 @@ export class ChatComponent implements OnInit {
       });
   }
 
-
   sendMessage() {
     this.chatService.sendMessage(this.messageInput);
     this.messageInput = '';
+  }
+
+  isAppend(messages: any[], newMessage: any): boolean {
+    let lastMessage = this.messages[this.messages.length - 1];
+    if (lastMessage.user.firstname === newMessage.user.firstname) {
+      return true;
+    }
   }
 
 }

@@ -59,7 +59,7 @@
 
     <div *ngFor="let message of messages" class="message">
 
-      <div class="message-first">
+      <div *ngIf="!message.append" class="message-first">
         <div>
           <img src="{{message.user.avatar}}">
         </div>
@@ -69,12 +69,10 @@
         </div>
       </div>
 
-      <!--
-      <div class="message-append">
+      <div *ngIf="message.append" class="message-append">
         <div><time>12:00 PM</time></div>
         <div>{{message.msg}}</div>
       </div>
-      -->
 
     </div>
 
