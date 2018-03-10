@@ -1,11 +1,24 @@
-const { app, BrowserWindow } = require('electron')
+const electron = require('electron')
+const { app, BrowserWindow } = electron
 const path = require('path')
 const url = require('url')
 
 let win
 
 function createWindow() {
-  win = new BrowserWindow({ width: 800, height: 600, frame: false })
+
+  let screenWidth = electron.screen.getPrimaryDisplay().workAreaSize.width
+  let screenHeight = electron.screen.getPrimaryDisplay().workAreaSize.height
+
+  win = new BrowserWindow({
+    width: screenWidth,
+    height: screenHeight,
+    minWidth: 800,
+    minHeight: 600,
+    frame: false,
+    title: 'Gifchat',
+    icon: 'logo.ico'
+  })
 
   win.loadURL(url.format({
     pathname: path.join(__dirname, 'dist/index.html'),
@@ -18,6 +31,7 @@ function createWindow() {
   win.on('closed', () => {
     win = null
   })
+
 }
 
 app.on('ready', createWindow)
