@@ -27,17 +27,9 @@ export class WindowService {
   }
 
   flashOnBlur() {
-    this._electronService.remote.getCurrentWindow().flashFrame(true);
-  }
-
-  goToPage(hasho: string) {
-    console.log(__dirname);
-    this._electronService.remote.getCurrentWindow().loadURL( url.format({
-      pathname: path.join(__dirname, 'dist/index.html'),
-      protocol: 'file:',
-      slashes: true,
-      hash: hasho
-    }));
+    if(this._electronService.isElectronApp && !this._electronService.remote.getCurrentWindow().isFocused()) {
+      this._electronService.remote.getCurrentWindow().flashFrame(true);
+    }
   }
 
 }
