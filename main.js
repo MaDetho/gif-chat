@@ -17,7 +17,7 @@ function createWindow() {
     minHeight: 600,
     frame: false,
     title: 'Gifchat',
-    icon: path.join(__dirname, 'src', 'logo.ico')
+    icon: path.join(__dirname, 'src', 'favicon.ico')
   })
 
   win.loadURL(url.format({
