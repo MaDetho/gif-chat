@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
+import { NgxElectronModule } from 'ngx-electron';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
@@ -27,7 +28,8 @@ import { StatusPipe } from './pipes/status.pipe';
     BrowserModule,
     routes,
     ReactiveFormsModule,
-    HttpModule
+    HttpModule,
+    NgxElectronModule
   ],
   providers: [
     AuthService,

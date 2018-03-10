@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ElectronService } from 'ngx-electron';
 
 @Component({
   selector: 'app-title-bar',
@@ -7,9 +8,27 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TitleBarComponent implements OnInit {
 
-  constructor() { }
+  constructor(private _electronService: ElectronService) { }
 
   ngOnInit() {
+  }
+
+  minimize() {
+    if(this._electronService.isElectronApp) {
+      this._electronService.remote.getCurrentWindow().minimize();
+    }
+  }
+
+  maximize() {
+    if(this._electronService.isElectronApp) {
+      this._electronService.remote.getCurrentWindow().maximize();
+    }
+  }
+
+  quit() {
+    if(this._electronService.isElectronApp) {
+      this._electronService.remote.app.quit();
+    }
   }
 
 }
