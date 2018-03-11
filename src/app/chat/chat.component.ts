@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ChatService } from '../services/chat.service';
 import { WindowService } from '../services/window.service';
+import { TenorService } from '../services/tenor.service';
+import { TenorTag } from '../model/tenorTag';
+import { TenorGifs } from '../model/tenorGifs';
 
 @Component({
   selector: 'app-chat',
@@ -15,20 +18,29 @@ export class ChatComponent implements OnInit {
   oldMessages: any = [];
   messages: any[] = [];
   users: object = [];
+  trendingTags: TenorTag[];
+  searchGifs: TenorGifs;
+  searchInput: string;
 
   constructor(private fb: FormBuilder,
     private chatService: ChatService,
-    private windowService: WindowService) {
+    private windowService: WindowService,
+    private tenorService: TenorService) {
 
     this.chatForm = this.fb.group({
       messageFormInput: ['', Validators.required]
     });
 
     this.gifForm = this.fb.group({
+      tenorSearchInput: ['']
     });
   }
 
   ngOnInit() {
+    this.tenorService.getTrending().subscribe((tags) => {
+      this.trendingTags = tags.slice(0,32)
+    });
+
     this.chatService.onConnect()
       .subscribe(() => {
         this.chatService.getUserStatus();
@@ -65,6 +77,18 @@ export class ChatComponent implements OnInit {
     if (lastMessage.user.firstname === newMessage.user.firstname) {
       return true;
     }
+  }
+
+  setSearchInput(term: string) {
+    this.searchInput = term;
+    this.searchGif();
+  }
+
+  searchGif() {
+    this.tenorService.search(this.searchInput).subscribe((gifs) => {
+      this.searchGifs = gifs;
+    });
+    
   }
 
 }

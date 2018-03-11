@@ -25,4 +25,8 @@ export class TitleBarComponent implements OnInit {
     this.windowService.quit();
   }
 
+  isElectronApp(): boolean {
+    return this.windowService.isElectronApp();
+  }
+
 }
