@@ -5,6 +5,9 @@ import { WindowService } from '../services/window.service';
 import { TenorService } from '../services/tenor.service';
 import { TenorTag } from '../model/tenorTag';
 import { TenorGifs } from '../model/tenorGifs';
+import { User } from '../model/user';
+import { OldMessage } from '../model/oldMessage';
+import { Message } from '../model/message';
 
 @Component({
   selector: 'app-chat',
@@ -15,9 +18,9 @@ export class ChatComponent implements OnInit {
   gifForm: FormGroup;
   chatForm: FormGroup;
   messageInput: string;
-  oldMessages: any = [];
-  messages: any[] = [];
-  users: object = [];
+  oldMessages: OldMessage[];
+  messages: Message[] = [];
+  users: User[];
   trendingTags: TenorTag[];
   searchGifs: TenorGifs;
   searchInput: string;
@@ -48,12 +51,12 @@ export class ChatComponent implements OnInit {
       });
 
     this.chatService.loadOldMessages()
-      .subscribe((messages: object[]) => {
+      .subscribe((messages: OldMessage[]) => {
         this.oldMessages = messages;
       });
 
     this.chatService.getMessage()
-      .subscribe((message: any) => {
+      .subscribe((message: Message) => {
         if (this.messages.length > 0) {
           message.append = this.isAppend(this.messages, message);
         }
@@ -62,7 +65,7 @@ export class ChatComponent implements OnInit {
       });
 
     this.chatService.getUserStatusUpdate()
-      .subscribe((users: object) => {
+      .subscribe((users: User[]) => {
         this.users = users;
       });
   }
@@ -72,15 +75,15 @@ export class ChatComponent implements OnInit {
     this.messageInput = '';
   }
 
-  isAppend(messages: any[], newMessage: any): boolean {
+  isAppend(messages: Message[], newMessage: Message): boolean {
     let lastMessage = this.messages[this.messages.length - 1];
     if (lastMessage.user.firstname === newMessage.user.firstname) {
       return true;
     }
   }
 
-  setSearchInput(term: string) {
-    this.searchInput = term;
+  setSearchInput(query: string) {
+    this.searchInput = query;
     this.searchGif();
   }
 

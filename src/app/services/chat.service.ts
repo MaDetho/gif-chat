@@ -2,6 +2,9 @@ import { Injectable } from '@angular/core';
 import * as io from 'socket.io-client';
 import { environment } from '../../environments/environment';
 import { Observable } from 'rxjs/Observable';
+import { User } from '../model/user';
+import { OldMessage } from '../model/oldMessage';
+import { Message } from '../model/message';
 
 @Injectable()
 export class ChatService {
@@ -24,7 +27,7 @@ export class ChatService {
 
   public getUserStatusUpdate = () => {
     return Observable.create((observer) => {
-      this.socket.on('userStatusUpdate', (users) => {
+      this.socket.on('userStatusUpdate', (users:User[]) => {
         observer.next(users);
       });
     });
@@ -33,7 +36,7 @@ export class ChatService {
 
   public loadOldMessages = () => {
     return Observable.create((observer) => {
-      this.socket.on('loadOldMessages', (messages) => {
+      this.socket.on('loadOldMessages', (messages:OldMessage[]) => {
         observer.next(messages);
       });
     });
@@ -41,7 +44,7 @@ export class ChatService {
 
   public getMessage = () => {
     return Observable.create((observer) => {
-      this.socket.on('newMessage', (message) => {
+      this.socket.on('newMessage', (message:Message) => {
         observer.next(message);
       });
     });
