@@ -1,25 +1,30 @@
 <aside class="gifs">
-  <section *ngIf="trendingTags && !searchInput" class="gifs-trending">
-    <figure *ngFor="let tag of trendingTags" (click)="setSearchInput(tag.searchterm)">
+  <section [hidden]="!showTags" class="gifs-trending">
+    <figure *ngFor="let tag of trendingTags" (click)="searchGif(tag.searchterm)">
       <img src="{{tag.image}}">
       <figcaption>{{tag.searchterm}}</figcaption>
     </figure>
   </section>
   <section *ngIf="false" class="gifs-favourites"></section>
-  <section *ngIf="searchInput && searchGifs" class="gifs-results">
-      <figure *ngFor="let gif of searchGifs.results" data-webm="gif.media[0].webm.url" data-width="gif.media[0].webm.dims[0]" data-height="gif.media[0].webm.dims[1]">
-        <img src="{{gif.media[0].tinygif.url}}">
-      </figure>
+  <section [style.display]="loadedComplete?'none':'inherit'">
+    LOADING
+  </section>
+  <section [style.display]="!loadedComplete?'none':'inherit'">
+    <section *ngIf="doShowGifResults" class="gifs-results">
+        <figure *ngFor="let gif of searchGifs.results" data-webm="gif.media[0].webm.url" data-width="gif.media[0].webm.dims[0]" data-height="gif.media[0].webm.dims[1]">
+          <img src="{{gif.media[0].tinygif.url}}" (load)="onLoad(gif.id)">
+        </figure>
+    </section>
   </section>
   <form class="gifs-form" [formGroup]="gifForm">
     <div class="gifs-form-search">
-      <input class="gifs-form-input" type="text" placeholder="Search" autocomplete="off" [(ngModel)]="searchInput" formControlName="tenorSearchInput" (keyup.enter)="searchGif()">
+      <input class="gifs-form-input" type="text" placeholder="Search" autocomplete="off" [(ngModel)]="searchInput" formControlName="tenorSearchInput" (keyup.enter)="searchGif()" (input)="checkShowTags()">
       <label *ngIf="!searchInput">
         <svg viewBox="0 0 15 16">
           <path d="M14.7719348,14.573471 L11.0741782,10.6129315 C12.0249364,9.44900866 12.5458625,7.98455556 12.5458625,6.45999641 C12.5458625,2.89801056 9.73177096,0 6.27293123,0 C2.8140915,0 0,2.89801056 0,6.45999641 C0,10.0219823 2.8140915,12.9199928 6.27293123,12.9199928 C7.57142799,12.9199928 8.80883186,12.5166643 9.86677535,11.7510143 L13.5926238,15.7416069 C13.7483561,15.9081625 13.9578175,16.0000068 14.1822793,16.0000068 C14.3947407,16.0000068 14.5962928,15.9165885 14.7492977,15.7649191 C15.0743992,15.4427618 15.0847632,14.9085482 14.7719348,14.573471 Z M6.27293123,1.68521645 C8.82955981,1.68521645 10.9094456,3.82712657 10.9094456,6.45999641 C10.9094456,9.09286625 8.82955981,11.2347764 6.27293123,11.2347764 C3.71630265,11.2347764 1.63641684,9.09286625 1.63641684,6.45999641 C1.63641684,3.82712657 3.71630265,1.68521645 6.27293123,1.68521645 Z"></path>
         </svg>
       </label>
-      <label *ngIf="searchInput" class="gifs-form-back">
+      <label *ngIf="searchInput" class="gifs-form-back" (click)="doShowTags()">
         <svg viewBox="0 0 10 16">
           <path d="M0.26544979,8.57104417 L8.43290605,15.763809 C8.79128857,16.0787303 9.37192558,16.0787303 9.73121311,15.763809 C10.0895956,15.4488876 10.0895956,14.9373728 9.73121311,14.6224514 L2.21159058,8.00039863 L9.7303081,1.37834583 C10.0886906,1.06342444 10.0886906,0.551909709 9.7303081,0.236191046 C9.37192558,-0.0787303486 8.79038357,-0.0787303486 8.43200104,0.236191046 L0.264544784,7.42888939 C-0.0883322841,7.74055526 -0.0883322841,8.26010913 0.26544979,8.57104417 Z"></path>
         </svg>

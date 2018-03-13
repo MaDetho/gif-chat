@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ChatService } from '../services/chat.service';
 import { WindowService } from '../services/window.service';
@@ -24,6 +24,9 @@ export class ChatComponent implements OnInit {
   trendingTags: TenorTag[];
   searchGifs: TenorGifs;
   searchInput: string;
+  showTags: boolean = true;
+  loadedGifs: string[] = [];
+  loadedComplete: boolean = true;
 
   constructor(private fb: FormBuilder,
     private chatService: ChatService,
@@ -82,16 +85,48 @@ export class ChatComponent implements OnInit {
     }
   }
 
-  setSearchInput(query: string) {
-    this.searchInput = query;
-    this.searchGif();
+  searchGif(query?: string) {
+    if(query) {
+      this.searchInput = query;
+    }
+    if(this.searchInput) {
+      this.doHideTags();
+      this.tenorService.search(this.searchInput).subscribe((gifs) => {
+        this.searchGifs = gifs;
+      });
+    } else {
+      this.showTags = true;
+    }
   }
 
-  searchGif() {
-    this.tenorService.search(this.searchInput).subscribe((gifs) => {
-      this.searchGifs = gifs;
-    });
-    
+  get doShowGifResults(): boolean {
+    return (this.searchInput && this.searchGifs && !this.showTags);
+  }
+
+  doShowTags() {
+    this.searchInput = "";
+    this.loadedGifs = [];
+    this.showTags = true;
+    this.loadedComplete = true;
+  }
+
+  doHideTags() {
+    this.loadedGifs = [];
+    this.showTags = false;
+    this.loadedComplete = false;
+  }
+
+  checkShowTags() {
+    if(!this.searchInput) {
+      this.showTags = true;
+    }
+  }
+
+  onLoad(id: string) {
+    this.loadedGifs.push(id);
+    if(this.searchGifs.results.length == this.loadedGifs.length) {
+      this.loadedComplete = true;
+    }
   }
 
 }
