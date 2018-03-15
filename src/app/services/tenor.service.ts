@@ -19,4 +19,9 @@ export class TenorService {
     return this.http.get(environment.tenorApiUrl + '/search?q=' + query  +'&limit=50&key=' + environment.tenorApiKey)
       .map((res) => res.json());
   }
+
+  getGifsByPathUrl(url: string): Observable<TenorGifs> {
+    return this.http.get(url)
+      .map((res) => res.json());
+  }
 }

@@ -1,8 +1,8 @@
 <aside class="gifs">
-  <section [hidden]="!showTags" class="gifs-trending">
-    <figure *ngFor="let tag of trendingTags" (click)="searchGif(tag.searchterm)">
-      <img src="{{tag.image}}">
-      <figcaption>{{tag.searchterm}}</figcaption>
+  <section [hidden]="!showTags || !loadedComplete" class="gifs-trending">
+    <figure *ngFor="let tag of trendingTags" (click)="searchGif(tag.tag)">
+      <img src="{{tag.image}}" (load)="onLoadTag(tag)">
+      <figcaption>{{tag.tag}}</figcaption>
     </figure>
   </section>
   <section *ngIf="false" class="gifs-favourites"></section>
@@ -12,7 +12,7 @@
   <section [style.display]="!loadedComplete?'none':'inherit'">
     <section *ngIf="doShowGifResults" class="gifs-results">
         <figure *ngFor="let gif of searchGifs.results" data-webm="gif.media[0].webm.url" data-width="gif.media[0].webm.dims[0]" data-height="gif.media[0].webm.dims[1]">
-          <img src="{{gif.media[0].tinygif.url}}" (load)="onLoad(gif.id)">
+          <img src="{{gif.media[0].tinygif.url}}" (load)="onLoadGif(gif.id)">
         </figure>
     </section>
   </section>

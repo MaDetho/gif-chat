@@ -8,6 +8,7 @@ import { TenorGifs } from '../model/tenorGifs';
 import { User } from '../model/user';
 import { OldMessage } from '../model/oldMessage';
 import { Message } from '../model/message';
+import { GifTag } from '../model/gifTag';
 
 @Component({
   selector: 'app-chat',
@@ -21,12 +22,13 @@ export class ChatComponent implements OnInit {
   oldMessages: OldMessage[];
   messages: Message[] = [];
   users: User[];
-  trendingTags: TenorTag[];
+  trendingTags: GifTag[] = [];
   searchGifs: TenorGifs;
   searchInput: string;
   showTags: boolean = true;
   loadedGifs: string[] = [];
-  loadedComplete: boolean = true;
+  loadedTags: string[] = [];
+  loadedComplete: boolean = false;
 
   constructor(private fb: FormBuilder,
     private chatService: ChatService,
@@ -44,7 +46,14 @@ export class ChatComponent implements OnInit {
 
   ngOnInit() {
     this.tenorService.getTrending().subscribe((tags) => {
-      this.trendingTags = tags.slice(0,32)
+      tags.slice(0,32).forEach((tag) => {
+        this.tenorService.getGifsByPathUrl(tag.path).subscribe((gifs) => {
+          var gifTag = <GifTag>{};
+          gifTag.tag = tag.searchterm;
+          gifTag.image = gifs.results[0].media[0].gif.preview;
+          this.trendingTags.push(gifTag);
+        })
+      })
     });
 
     this.chatService.onConnect()
@@ -122,9 +131,16 @@ export class ChatComponent implements OnInit {
     }
   }
 
-  onLoad(id: string) {
+  onLoadGif(id: string) {
     this.loadedGifs.push(id);
     if(this.searchGifs.results.length == this.loadedGifs.length) {
+      this.loadedComplete = true;
+    }
+  }
+
+  onLoadTag(tag: string) {
+    this.loadedTags.push(tag);
+    if(this.trendingTags.length == this.loadedTags.length) {
       this.loadedComplete = true;
     }
   }
