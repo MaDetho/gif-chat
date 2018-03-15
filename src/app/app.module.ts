@@ -17,6 +17,7 @@ import { StatusPipe } from './pipes/status.pipe';
 import { WindowService } from './services/window.service';
 import { RouterModule } from '@angular/router';
 import { TenorService } from './services/tenor.service';
+import { LoadingComponent } from './loading/loading.component';
 
 
 @NgModule({
@@ -25,7 +26,8 @@ import { TenorService } from './services/tenor.service';
     LoginComponent,
     ChatComponent,
     TitleBarComponent,
-    StatusPipe
+    StatusPipe,
+    LoadingComponent
   ],
   imports: [
     BrowserModule,

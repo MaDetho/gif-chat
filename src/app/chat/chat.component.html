@@ -7,7 +7,7 @@
   </section>
   <section *ngIf="false" class="gifs-favourites"></section>
   <section [style.display]="loadedComplete?'none':'inherit'">
-    LOADING
+    <app-loading></app-loading>
   </section>
   <section [style.display]="!loadedComplete?'none':'inherit'">
     <section *ngIf="doShowGifResults" class="gifs-results">
