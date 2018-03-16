@@ -1,10 +1,11 @@
 import { ModuleWithProviders } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { AppComponent } from './app.component';
-import { LoginComponent } from './login/login.component';
-import { ChatComponent } from './chat/chat.component';
 import { AuthGuard } from './guards/auth.guard';
+
+import { AppComponent } from './app.component';
+import { LoginComponent } from './components/login/login.component';
+import { ChatComponent } from './components/chat/chat.component';
 
 export const router: Routes = [
     { path: '', component: LoginComponent },

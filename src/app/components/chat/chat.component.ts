@@ -1,14 +1,13 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { ChatService } from '../services/chat.service';
-import { WindowService } from '../services/window.service';
-import { TenorService } from '../services/tenor.service';
-import { TenorTag } from '../model/tenorTag';
-import { TenorGifs } from '../model/tenorGifs';
-import { User } from '../model/user';
-import { OldMessage } from '../model/oldMessage';
-import { Message } from '../model/message';
-import { GifTag } from '../model/gifTag';
+import { OldMessage } from '../../model/oldMessage';
+import { Message } from '../../model/message';
+import { User } from '../../model/user';
+import { GifTag } from '../../model/gifTag';
+import { TenorGifs } from '../../model/tenorGifs';
+import { ChatService } from '../../services/chat.service';
+import { WindowService } from '../../services/window.service';
+import { TenorService } from '../../services/tenor.service';
 
 @Component({
   selector: 'app-chat',
