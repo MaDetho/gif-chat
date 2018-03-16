@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, ViewChildren, QueryList } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { OldMessage } from '../../model/oldMessage';
 import { Message } from '../../model/message';
@@ -28,6 +28,8 @@ export class ChatComponent implements OnInit {
   loadedGifs: string[] = [];
   loadedTags: string[] = [];
   loadedComplete: boolean = false;
+
+  @ViewChildren('webm') allSentWebms: QueryList<ElementRef>;
 
   constructor(private fb: FormBuilder,
     private chatService: ChatService,
@@ -79,6 +81,22 @@ export class ChatComponent implements OnInit {
       .subscribe((users: User[]) => {
         this.users = users;
       });
+
+    if (this.windowService.isElectronApp) {
+      //Pause all Webms when window is not focused
+      this.windowService.app.on('browser-window-blur', () => {
+        this.allSentWebms.forEach((webmElement) => {
+          webmElement.nativeElement.pause();
+        })
+      });
+
+      //Play all Webms when window is not focused
+      this.windowService.app.on('browser-window-focus', () => {
+        this.allSentWebms.forEach((webmElement) => {
+          webmElement.nativeElement.play();
+        })
+      });
+    }
   }
 
   sendMessage() {

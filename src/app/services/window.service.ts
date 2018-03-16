@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ElectronService } from 'ngx-electron';
+import { App } from 'electron';
 const url = require('url');
 const path = require('path');
 
@@ -34,6 +35,10 @@ export class WindowService {
 
   isElectronApp(): boolean {
     return this._electronService.isElectronApp;
+  }
+
+  get app(): App {
+    return this._electronService.remote.app;
   }
 
 }

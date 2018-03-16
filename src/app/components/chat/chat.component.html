@@ -82,7 +82,7 @@
             {{message.msg}}
           </div>
           <div *ngIf="message.webm">
-            <video [attr.src]="message.webm.url" [attr.width]="message.webm.dims[0]" [attr.height]="message.webm.dims[1]" autoplay loop muted></video>
+            <video #webm [attr.src]="message.webm.url" [attr.width]="message.webm.dims[0]" [attr.height]="message.webm.dims[1]" autoplay loop muted></video>
           </div>
         </div>
       </div>
@@ -91,7 +91,7 @@
         <div><time>12:00 PM</time></div>
         <div *ngIf="message.msg">{{message.msg}}</div>
         <div *ngIf="message.webm">
-          <video [attr.src]="message.webm.url" [attr.width]="message.webm.dims[0]" [attr.height]="message.webm.dims[1]" autoplay loop muted></video>
+          <video #webm [attr.src]="message.webm.url" [attr.width]="message.webm.dims[0]" [attr.height]="message.webm.dims[1]" autoplay loop muted></video>
         </div>
       </div>
 
