@@ -11,8 +11,8 @@
   </section>
   <section [style.display]="!loadedComplete?'none':'inherit'">
     <section *ngIf="doShowGifResults" class="gifs-results">
-        <figure *ngFor="let gif of searchGifs.results" data-webm="gif.media[0].webm.url" data-width="gif.media[0].webm.dims[0]" data-height="gif.media[0].webm.dims[1]">
-          <img src="{{gif.media[0].tinygif.url}}" (load)="onLoadGif(gif.id)">
+        <figure *ngFor="let gif of searchGifs.results">
+          <img src="{{gif.media[0].tinygif.url}}" (load)="onLoadGif(gif.id)" (click)="sendWebm(gif.media[0].webm)">
         </figure>
     </section>
   </section>
@@ -78,13 +78,21 @@
         </div>
         <div>
           <h5><strong>{{message.user.firstname}}</strong><time>12:00 PM</time></h5>
-          {{message.msg}}
+          <div *ngIf="message.msg">
+            {{message.msg}}
+          </div>
+          <div *ngIf="message.webm">
+            <video [attr.src]="message.webm.url" [attr.width]="message.webm.dims[0]" [attr.height]="message.webm.dims[1]" autoplay loop muted></video>
+          </div>
         </div>
       </div>
 
       <div *ngIf="message.append" class="message-append">
         <div><time>12:00 PM</time></div>
-        <div>{{message.msg}}</div>
+        <div *ngIf="message.msg">{{message.msg}}</div>
+        <div *ngIf="message.webm">
+          <video [attr.src]="message.webm.url" [attr.width]="message.webm.dims[0]" [attr.height]="message.webm.dims[1]" autoplay loop muted></video>
+        </div>
       </div>
 
     </div>

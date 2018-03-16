@@ -4,7 +4,7 @@ import { OldMessage } from '../../model/oldMessage';
 import { Message } from '../../model/message';
 import { User } from '../../model/user';
 import { GifTag } from '../../model/gifTag';
-import { TenorGifs } from '../../model/tenorGifs';
+import { TenorGifs, Medium, Webm } from '../../model/tenorGifs';
 import { ChatService } from '../../services/chat.service';
 import { WindowService } from '../../services/window.service';
 import { TenorService } from '../../services/tenor.service';
@@ -45,7 +45,7 @@ export class ChatComponent implements OnInit {
 
   ngOnInit() {
     this.tenorService.getTrending().subscribe((tags) => {
-      tags.slice(0,32).forEach((tag) => {
+      tags.slice(0, 32).forEach((tag) => {
         this.tenorService.getGifsByPathUrl(tag.path).subscribe((gifs) => {
           var gifTag = <GifTag>{};
           gifTag.tag = tag.searchterm;
@@ -94,10 +94,10 @@ export class ChatComponent implements OnInit {
   }
 
   searchGif(query?: string) {
-    if(query) {
+    if (query) {
       this.searchInput = query;
     }
-    if(this.searchInput) {
+    if (this.searchInput) {
       this.doHideTags();
       this.tenorService.search(this.searchInput).subscribe((gifs) => {
         this.searchGifs = gifs;
@@ -125,23 +125,27 @@ export class ChatComponent implements OnInit {
   }
 
   checkShowTags() {
-    if(!this.searchInput) {
+    if (!this.searchInput) {
       this.showTags = true;
     }
   }
 
   onLoadGif(id: string) {
     this.loadedGifs.push(id);
-    if(this.searchGifs.results.length == this.loadedGifs.length) {
+    if (this.searchGifs.results.length == this.loadedGifs.length) {
       this.loadedComplete = true;
     }
   }
 
   onLoadTag(tag: string) {
     this.loadedTags.push(tag);
-    if(this.trendingTags.length == this.loadedTags.length) {
+    if (this.trendingTags.length == this.loadedTags.length) {
       this.loadedComplete = true;
     }
+  }
+
+  sendWebm(gif: Webm) {
+    this.chatService.sendWebm(gif);
   }
 
 }

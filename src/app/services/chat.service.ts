@@ -5,6 +5,7 @@ import { Observable } from 'rxjs/Observable';
 import { User } from '../model/user';
 import { OldMessage } from '../model/oldMessage';
 import { Message } from '../model/message';
+import { Webm } from '../model/tenorGifs';
 
 @Injectable()
 export class ChatService {
@@ -58,8 +59,12 @@ export class ChatService {
     this.socket.emit("getOldMessages");
   }
 
-  public sendMessage = (message) => {
+  public sendMessage = (message: string) => {
     this.socket.emit('sendMessage', message);
+  }
+
+  public sendWebm = (webm: Webm) => {
+    this.socket.emit('sendWebm', webm);
   }
 
 }
