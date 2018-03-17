@@ -100,7 +100,7 @@ export class ChatComponent implements OnInit {
   }
 
   sendMessage() {
-    if(this.messageInput) {
+    if(this.messageInput.trim()) {
       this.chatService.sendMessage(this.messageInput);
       this.messageInput = '';
     }
