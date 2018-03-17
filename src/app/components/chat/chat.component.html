@@ -1,5 +1,5 @@
 <aside class="gifs">
-  <section [hidden]="!showTags || !loadedComplete" class="gifs-trending">
+  <section [style.display]="(!showTags || !loadedComplete) ? 'none':'flex'" class="gifs-trending">
     <figure *ngFor="let tag of trendingTags" (click)="searchGif(tag.tag)">
       <img src="{{tag.image}}" (load)="onLoadTag(tag)">
       <figcaption>{{tag.tag}}</figcaption>
