@@ -100,8 +100,10 @@ export class ChatComponent implements OnInit {
   }
 
   sendMessage() {
-    this.chatService.sendMessage(this.messageInput);
-    this.messageInput = '';
+    if(this.messageInput) {
+      this.chatService.sendMessage(this.messageInput);
+      this.messageInput = '';
+    }
   }
 
   isAppend(messages: Message[], newMessage: Message): boolean {
