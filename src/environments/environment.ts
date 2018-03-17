@@ -5,6 +5,7 @@
 
 export const environment = {
   production: false,
+  //apiUrl: "http://localhost:8081",
   apiUrl: "https://wayne.thxma.de",
   tenorApiKey: "NNDVE1MIGV62",
   tenorApiUrl: "https://api.tenor.com/v1"
