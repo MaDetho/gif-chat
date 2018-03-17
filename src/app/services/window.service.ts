@@ -7,6 +7,7 @@ const path = require('path');
 
 @Injectable()
 export class WindowService {
+  bounceId:number = undefined;
 
   constructor(private _electronService: ElectronService,
               private soundService: SoundService) { }
@@ -32,7 +33,16 @@ export class WindowService {
   flashOnBlur() {
     if (this.isElectronApp && !this._electronService.remote.getCurrentWindow().isFocused()) {
       this._electronService.remote.getCurrentWindow().flashFrame(true);
+      if(this.app.dock) {
+        this.bounceId = this.app.dock.bounce("critical");
+      }
       this.soundService.playMessageSound();
+    }
+  }
+
+  onFocus() {
+    if(this.bounceId && this.app.dock) {
+      this.app.dock.cancelBounce(this.bounceId)
     }
   }
 
