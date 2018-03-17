@@ -8,6 +8,7 @@ import { TenorGifs, Medium, Webm } from '../../model/tenorGifs';
 import { ChatService } from '../../services/chat.service';
 import { WindowService } from '../../services/window.service';
 import { TenorService } from '../../services/tenor.service';
+import { SoundService } from '../../services/sound.service';
 
 @Component({
   selector: 'app-chat',
@@ -34,7 +35,8 @@ export class ChatComponent implements OnInit {
   constructor(private fb: FormBuilder,
     private chatService: ChatService,
     private windowService: WindowService,
-    private tenorService: TenorService) {
+    private tenorService: TenorService,
+    private soundService: SoundService) {
 
     this.chatForm = this.fb.group({
       messageFormInput: ['', Validators.required]
@@ -80,6 +82,7 @@ export class ChatComponent implements OnInit {
     this.chatService.getUserStatusUpdate()
       .subscribe((users: User[]) => {
         this.users = users;
+        this.soundService.playLoginSound();
       });
 
     if (this.windowService.isElectronApp) {
@@ -100,7 +103,7 @@ export class ChatComponent implements OnInit {
   }
 
   sendMessage() {
-    if(this.messageInput.trim()) {
+    if (this.messageInput.trim()) {
       this.chatService.sendMessage(this.messageInput);
       this.messageInput = '';
     }
@@ -165,6 +168,8 @@ export class ChatComponent implements OnInit {
   }
 
   sendWebm(gif: Webm) {
+    this.searchInput = "";
+    this.checkShowTags();
     this.chatService.sendWebm(gif);
   }
 

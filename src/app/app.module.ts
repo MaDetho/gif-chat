@@ -20,6 +20,7 @@ import { ChatComponent } from './components/chat/chat.component';
 import { TitleBarComponent } from './components/title-bar/title-bar.component';
 import { LoadingComponent } from './components/loading/loading.component';
 import { CurrentTimeComponent } from './components/current-time/current-time.component';
+import { SoundService } from './services/sound.service';
 
 
 @NgModule({
@@ -45,7 +46,8 @@ import { CurrentTimeComponent } from './components/current-time/current-time.com
     AuthGuard,
     ChatService,
     WindowService,
-    TenorService
+    TenorService,
+    SoundService
   ],
   exports: [RouterModule],
   bootstrap: [AppComponent]
