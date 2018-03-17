@@ -56,7 +56,7 @@
           <img src="{{oldMessage._creator.avatar}}">
         </div>
         <div>
-          <h5><strong>{{oldMessage._creator.firstname}}</strong><time>12:00 PM</time></h5>
+          <h5><strong>{{oldMessage._creator.firstname}}</strong><time class="time">{{oldMessage.created | date:'shortTime'}}</time></h5>
           <div *ngIf="oldMessage.msg">
             {{oldMessage.msg}}
           </div>
@@ -67,7 +67,7 @@
       </div>
 
       <div *ngIf="i > 0 && oldMessage._creator.usr ===  oldMessages[i-1]._creator.usr" class="message-append">
-        <div><time>12:00 PM</time></div>
+        <div><time class="time">{{oldMessage.created | date:'shortTime'}}</time></div>
         <div *ngIf="oldMessage.msg">{{oldMessage.msg}}</div>
         <div *ngIf="oldMessage.webm">
           <video #webm [attr.src]="oldMessage.webm.url" [attr.width]="oldMessage.webm.dims[0]" [attr.height]="oldMessage.webm.dims[1]" autoplay loop muted></video>
@@ -83,7 +83,7 @@
           <img src="{{message.user.avatar}}">
         </div>
         <div>
-          <h5><strong>{{message.user.firstname}}</strong><time>12:00 PM</time></h5>
+          <h5><strong>{{message.user.firstname}}</strong><current-time class="time"></current-time></h5>
           <div *ngIf="message.msg">
             {{message.msg}}
           </div>
@@ -94,7 +94,7 @@
       </div>
 
       <div *ngIf="message.append" class="message-append">
-        <div><time>12:00 PM</time></div>
+        <div><current-time class="time"></current-time></div>
         <div *ngIf="message.msg">{{message.msg}}</div>
         <div *ngIf="message.webm">
           <video #webm [attr.src]="message.webm.url" [attr.width]="message.webm.dims[0]" [attr.height]="message.webm.dims[1]" autoplay loop muted></video>
@@ -112,8 +112,8 @@
       </div>
       <div>
         <strong>{{user.firstname}}</strong>
-        <small *ngIf="user.status == '1'">Online - <time class="timeago" datetime="2018-02-25T18:38:21.581Z"></time></small>
-        <small *ngIf="user.status == '0'">Offline - <time class="timeago" datetime="2018-02-25T18:38:21.581Z"></time></small>
+        <small *ngIf="user.status == '1'">Online - {{user.signedDate | timeAgo}}</small>
+        <small *ngIf="user.status == '0'">Offline - {{user.signedDate | timeAgo}}</small>
       </div>
     </div>
   </section>

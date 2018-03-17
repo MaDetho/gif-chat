@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { NgxElectronModule } from 'ngx-electron';
+import { TimeAgoPipe } from 'time-ago-pipe';
 
 import { routes } from './app.routes';
 import { AuthService } from './services/auth.service';
@@ -18,6 +19,7 @@ import { LoginComponent } from './components/login/login.component';
 import { ChatComponent } from './components/chat/chat.component';
 import { TitleBarComponent } from './components/title-bar/title-bar.component';
 import { LoadingComponent } from './components/loading/loading.component';
+import { CurrentTimeComponent } from './components/current-time/current-time.component';
 
 
 @NgModule({
@@ -27,7 +29,9 @@ import { LoadingComponent } from './components/loading/loading.component';
     ChatComponent,
     TitleBarComponent,
     StatusPipe,
-    LoadingComponent
+    LoadingComponent,
+    TimeAgoPipe,
+    CurrentTimeComponent
   ],
   imports: [
     BrowserModule,

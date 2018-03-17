@@ -10,35 +10,37 @@ export class WindowService {
   constructor(private _electronService: ElectronService) { }
 
   minimize() {
-    if(this.isElectronApp()) {
+    if(this.isElectronApp) {
       this._electronService.remote.getCurrentWindow().minimize();
     }
   }
 
   maximize() {
-    if(this.isElectronApp()) {
+    if(this.isElectronApp) {
       this._electronService.remote.getCurrentWindow().maximize();
     }
   }
 
   quit() {
-    if(this.isElectronApp()) {
+    if(this.isElectronApp) {
       this._electronService.remote.app.quit();
     }
   }
 
   flashOnBlur() {
-    if(this.isElectronApp() && !this._electronService.remote.getCurrentWindow().isFocused()) {
+    if(this.isElectronApp && !this._electronService.remote.getCurrentWindow().isFocused()) {
       this._electronService.remote.getCurrentWindow().flashFrame(true);
     }
   }
 
-  isElectronApp(): boolean {
+  get isElectronApp(): boolean {
     return this._electronService.isElectronApp;
   }
 
   get app(): App {
-    return this._electronService.remote.app;
+    if(this.isElectronApp) {
+      return this._electronService.remote.app;
+    }
   }
 
 }

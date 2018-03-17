@@ -271,11 +271,11 @@
           }
         }
         .message-append {
-          time {
+          .time {
             opacity: 0;
           }
           &:hover {
-            time {
+            .time {
               opacity: 1;
             }
           }
@@ -286,7 +286,7 @@
           border-radius: 100%;
           float: right;
         }
-        time {
+        .time {
           font-size: 12px;
           color: $grey2;
         }
