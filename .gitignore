@@ -45,3 +45,7 @@ Thumbs.db
 \.vscode/
 
 packages/
+
+package-lock\.json
+
+yarn\.lock
