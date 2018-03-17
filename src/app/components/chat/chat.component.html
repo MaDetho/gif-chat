@@ -49,24 +49,30 @@
 
   <section class="chat-messages" #scrollMe [scrollTop]="scrollMe.scrollHeight">
 
-    <div *ngFor="let oldMessage of oldMessages" class="message">
+    <div *ngFor="let oldMessage of oldMessages; let i = index" class="message">
 
-      <div class="message-first">
+      <div *ngIf="i == 0 || oldMessage._creator.usr !==  oldMessages[i-1]._creator.usr" class="message-first">
         <div>
           <img src="{{oldMessage._creator.avatar}}">
         </div>
         <div>
           <h5><strong>{{oldMessage._creator.firstname}}</strong><time>12:00 PM</time></h5>
-          {{oldMessage.msg}}
+          <div *ngIf="oldMessage.msg">
+            {{oldMessage.msg}}
+          </div>
+          <div *ngIf="oldMessage.webm">
+            <video #webm [attr.src]="oldMessage.webm.url" [attr.width]="oldMessage.webm.dims[0]" [attr.height]="oldMessage.webm.dims[1]" autoplay loop muted></video>
+          </div>
         </div>
       </div>
 
-      <!--
-      <div class="message-append">
+      <div *ngIf="i > 0 && oldMessage._creator.usr ===  oldMessages[i-1]._creator.usr" class="message-append">
         <div><time>12:00 PM</time></div>
-        <div>{{oldMessage.msg}}</div>
+        <div *ngIf="oldMessage.msg">{{oldMessage.msg}}</div>
+        <div *ngIf="oldMessage.webm">
+          <video #webm [attr.src]="oldMessage.webm.url" [attr.width]="oldMessage.webm.dims[0]" [attr.height]="oldMessage.webm.dims[1]" autoplay loop muted></video>
+        </div>
       </div>
-      -->
       
     </div>
 
